@@ -3,31 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso Personalizado</title>
+    <title>Iniciar Sesión - Mi Web Login</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0;
+            padding: 20px;
         }
 
         .login-card {
             background: white;
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            width: 350px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
             text-align: center;
         }
 
         .login-card h1 {
             color: #333;
             margin-bottom: 10px;
-            font-size: 24px;
+            font-size: 28px;
         }
 
         .login-card p {
@@ -43,64 +50,47 @@
 
         .input-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             color: #333;
-            font-size: 12px;
-            font-weight: bold;
+            font-size: 13px;
+            font-weight: 600;
         }
 
         .input-group input {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
         }
 
-        .btn-google-custom {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-primary {
             width: 100%;
             padding: 12px;
-            background-color: #db4437;
+            background: #333;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            text-decoration: none;
             transition: background 0.3s;
-            box-sizing: border-box;
         }
 
-        .btn-google-custom:hover {
-            background-color: #c53929;
-        }
-
-        .btn-google-custom img {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            background: white;
-            border-radius: 50%;
-            padding: 2px;
+        .btn-primary:hover {
+            background: #555;
         }
 
         .divider {
-            margin: 20px 0;
+            margin: 25px 0;
             position: relative;
             text-align: center;
-        }
-
-        .divider span {
-            background: white;
-            padding: 0 10px;
-            color: #999;
-            font-size: 12px;
-            position: relative;
-            z-index: 1;
         }
 
         .divider::before {
@@ -110,35 +100,112 @@
             left: 0;
             width: 100%;
             height: 1px;
-            background: #eee;
-            z-index: 0;
+            background: #e0e0e0;
         }
 
-        .hidden { display: none; }
-        .user-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin: 15px auto;
-            border: 3px solid #667eea;
-            display: block;
+        .divider span {
+            background: white;
+            padding: 0 15px;
+            color: #999;
+            font-size: 13px;
+            position: relative;
+            z-index: 1;
         }
+
+        .btn-google {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #444;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-google:hover {
+            background: #f5f5f5;
+            border-color: #ccc;
+        }
+
+        .btn-google img {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 4px solid #667eea;
+            object-fit: cover;
+        }
+
+        .user-info h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .user-info p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
         .btn-logout {
             background: #dc3545;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 30px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-top: 15px;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 0.3s;
         }
-        .btn-logout:hover { background: #c82333; }
+
+        .btn-logout:hover {
+            background: #c82333;
+        }
+
         .error-msg {
             color: #dc3545;
-            font-size: 12px;
-            margin-top: 10px;
+            font-size: 13px;
+            margin-top: 15px;
+            padding: 10px;
+            background: #ffe6e6;
+            border-radius: 5px;
             display: none;
+        }
+
+        .success-msg {
+            color: #28a745;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -146,50 +213,60 @@
 
     <div class="login-card">
         
+        <!-- VISTA DE LOGIN -->
         <div id="login-view">
-            <h1>Bienvenido</h1>
-            <p>Ingresa a tu cuenta para continuar</p>
+            <h1>👋 Bienvenido</h1>
+            <p>Inicia sesión para continuar</p>
 
-            <form onsubmit="event.preventDefault();">
+            <!-- Formulario de ejemplo (visual) -->
+            <form onsubmit="event.preventDefault(); alert('Este es un formulario de ejemplo. Usa Google para login real.');">
                 <div class="input-group">
                     <label>Correo Electrónico</label>
-                    <input type="email" placeholder="nombre@ejemplo.com">
+                    <input type="email" placeholder="tu@email.com" required>
                 </div>
                 <div class="input-group">
                     <label>Contraseña</label>
-                    <input type="password" placeholder="••••••••">
+                    <input type="password" placeholder="••••••••" required>
                 </div>
-                <button type="submit" style="width:100%; padding:10px; background:#333; color:white; border:none; border-radius:5px; cursor:pointer;">Entrar</button>
+                <button type="submit" class="btn-primary">Entrar</button>
             </form>
 
             <div class="divider">
-                <span>O continúa con</span>
+                <span>o continúa con</span>
             </div>
 
-            <button class="btn-google-custom" onclick="loginGoogle()">
-                <img src="https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png" alt="G">
+            <!-- BOTÓN DE GOOGLE -->
+            <button class="btn-google" onclick="loginGoogle()" id="btn-login">
+                <img src="https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png" alt="Google">
                 Iniciar con Google
             </button>
-            <p class="error-msg" id="error-msg"></p>
+
+            <div class="error-msg" id="error-msg"></div>
         </div>
 
+        <!-- VISTA DE USUARIO LOGUEADO -->
         <div id="user-view" class="hidden">
-            <img id="user-photo" class="user-avatar" src="" alt="Foto">
-            <h1 id="user-name">Nombre</h1>
-            <p id="user-email">email@ejemplo.com</p>
-            <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+            <img id="user-photo" class="user-avatar" src="" alt="Foto de perfil">
+            <div class="user-info">
+                <h2 id="user-name">Nombre</h2>
+                <p id="user-email">email@ejemplo.com</p>
+                <p class="success-msg">✅ Sesión iniciada correctamente</p>
+                <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+            </div>
         </div>
 
     </div>
 
+    <!-- FIREBASE SDK vía CDN -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } 
         from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        // 🔥 TU CONFIGURACIÓN - VERIFICA QUE ESTÉ BIEN COPIADA
+        // 🔥 CONFIGURACIÓN DE FIREBASE
+        // ⚠️ REEMPLAZA "TU_API_KEY_AQUI" CON LA API KEY QUE CREASTE EN GOOGLE CLOUD CONSOLE
         const firebaseConfig = {
-            apiKey: "AIzaSyAyS_7VY6bLH3sCf3I78GyABUeysZwNjrg",
+            apiKey: "AIzaSyAyS_7VY6bLH3sCf3I78GyABUeysZwNjrg",  // ← CAMBIA ESTO
             authDomain: "iniciosesion-60bcb.firebaseapp.com",
             projectId: "iniciosesion-60bcb",
             storageBucket: "iniciosesion-60bcb.firebasestorage.app",
@@ -198,62 +275,118 @@
             measurementId: "G-P7DG8BNLR7"
         };
 
-        // Debug: Verificar que la config existe
-        console.log("🔥 Firebase Config:", firebaseConfig);
-        console.log("🔑 API Key:", firebaseConfig.apiKey);
-
+        // Inicializar Firebase
+        let auth;
         try {
             const app = initializeApp(firebaseConfig);
-            const auth = getAuth(app);
-            const provider = new GoogleAuthProvider();
-
+            auth = getAuth(app);
             console.log("✅ Firebase inicializado correctamente");
-
-            const loginView = document.getElementById('login-view');
-            const userView = document.getElementById('user-view');
-            const userName = document.getElementById('user-name');
-            const userEmail = document.getElementById('user-email');
-            const userPhoto = document.getElementById('user-photo');
-            const errorMsg = document.getElementById('error-msg');
-
-            window.loginGoogle = () => {
-                console.log("🔵 Intentando login...");
-                signInWithPopup(auth, provider)
-                    .then((result) => {
-                        console.log("✅ Login exitoso:", result.user);
-                    })
-                    .catch((error) => {
-                        console.error("❌ Error:", error.code, error.message);
-                        errorMsg.textContent = "Error: " + error.message;
-                        errorMsg.style.display = 'block';
-                    });
-            };
-
-            window.logout = () => {
-                signOut(auth).then(() => {
-                    console.log("👋 Sesión cerrada");
-                });
-            };
-
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    console.log("👤 Usuario logueado:", user.email);
-                    loginView.classList.add('hidden');
-                    userView.classList.remove('hidden');
-                    
-                    userName.textContent = user.displayName || 'Usuario';
-                    userEmail.textContent = user.email;
-                    userPhoto.src = user.photoURL || 'https://via.placeholder.com/80';
-                } else {
-                    console.log("🔒 No hay sesión activa");
-                    loginView.classList.remove('hidden');
-                    userView.classList.add('hidden');
-                }
-            });
-
+            console.log("🔑 API Key:", firebaseConfig.apiKey);
         } catch (error) {
             console.error("❌ Error al inicializar Firebase:", error);
-            alert("Error al inicializar Firebase: " + error.message);
+            showError("Error de configuración. Revisa la consola (F12).");
+        }
+
+        const provider = new GoogleAuthProvider();
+        const loginView = document.getElementById('login-view');
+        const userView = document.getElementById('user-view');
+        const errorMsg = document.getElementById('error-msg');
+        const btnLogin = document.getElementById('btn-login');
+
+        // ✅ Función para iniciar sesión con Google
+        window.loginGoogle = async () => {
+            if (!auth) {
+                showError("Firebase no está configurado correctamente.");
+                return;
+            }
+
+            console.log("🔵 Intentando login con Google...");
+            btnLogin.innerHTML = '<div class="loading"></div> Conectando...';
+            btnLogin.disabled = true;
+            errorMsg.style.display = 'none';
+
+            try {
+                const result = await signInWithPopup(auth, provider);
+                console.log("✅ Login exitoso:", result.user);
+                // onAuthStateChanged se encargará de actualizar la UI
+            } catch (error) {
+                console.error("❌ Error:", error.code, error.message);
+                showError("Error: " + getErrorMessage(error.code));
+                btnLogin.innerHTML = `
+                    <img src="https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png" alt="Google">
+                    Iniciar con Google
+                `;
+                btnLogin.disabled = false;
+            }
+        };
+
+        // ✅ Función para cerrar sesión
+        window.logout = async () => {
+            if (!auth) return;
+            
+            try {
+                await signOut(auth);
+                console.log("👋 Sesión cerrada");
+            } catch (error) {
+                console.error("Error al cerrar sesión:", error);
+            }
+        };
+
+        // ✅ Escuchar cambios de autenticación
+        if (auth) {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    // 👤 Usuario logueado
+                    console.log("👤 Usuario logueado:", user.email);
+                    showUserView(user);
+                } else {
+                    // 🔐 Usuario no logueado
+                    console.log("🔒 No hay sesión activa");
+                    showLoginView();
+                }
+            });
+        }
+
+        // Mostrar vista de usuario
+        function showUserView(user) {
+            loginView.classList.add('hidden');
+            userView.classList.remove('hidden');
+            
+            document.getElementById('user-name').textContent = user.displayName || 'Usuario';
+            document.getElementById('user-email').textContent = user.email;
+            document.getElementById('user-photo').src = user.photoURL || 'https://via.placeholder.com/100';
+        }
+
+        // Mostrar vista de login
+        function showLoginView() {
+            loginView.classList.remove('hidden');
+            userView.classList.add('hidden');
+            btnLogin.innerHTML = `
+                <img src="https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png" alt="Google">
+                Iniciar con Google
+            `;
+            btnLogin.disabled = false;
+        }
+
+        // Mostrar error
+        function showError(message) {
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            setTimeout(() => {
+                errorMsg.style.display = 'none';
+            }, 5000);
+        }
+
+        // Mensajes de error amigables
+        function getErrorMessage(errorCode) {
+            const messages = {
+                'auth/popup-closed-by-user': 'Ventana cerrada. Inténtalo de nuevo.',
+                'auth/popup-blocked': 'Popup bloqueado. Permite popups en este sitio.',
+                'auth/unauthorized-domain': 'Dominio no autorizado. Contacta al administrador.',
+                'auth/api-key-not-valid': 'API key no válida. Verifica la configuración.',
+                'auth/network-request-failed': 'Error de red. Verifica tu conexión.'
+            };
+            return messages[errorCode] || 'Error desconocido. Inténtalo de nuevo.';
         }
     </script>
 </body>
